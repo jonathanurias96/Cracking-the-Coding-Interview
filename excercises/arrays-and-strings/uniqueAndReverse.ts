@@ -15,7 +15,7 @@
  * 
  */
 
-const hasAllUniqueCharacters = (word: string): boolean => {
+export const hasAllUniqueCharacters = (word: string): boolean => {
     for(let i = 0; i < word.length; i++) {
         const currentCharater = word[i];
         const restOfCharacters = word.substring(i + 1);
