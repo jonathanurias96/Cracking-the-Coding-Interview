@@ -22,34 +22,24 @@ const stringCompression = (word: string): string => {
     if(hasAllUniqueCharacters(word)) {
        return word; 
     }
-
-    let stringCompressed = '';
-    const charactersAmounts: CharactersAmounts = {};
-
-    for(let i = 0; i < word.length; i ++) {
-        const currentCharater = word[i];
-
-        if(charactersAmounts[currentCharater]) {
-            charactersAmounts[currentCharater] += 1;
-        } else {
-            charactersAmounts[currentCharater] = 1;
+    let compressedWord = '';
+    let counter = 1;
+    for(let i = 0; i < word.length; i++) {
+        let currentCharater = word[i];
+        for(let j = i + 1; currentCharater === word[j]; j++) {
+            counter++;
+            i++;
         }
+        compressedWord += currentCharater + counter;
+        counter = 1;
     }
-
-    Object.keys(charactersAmounts).forEach(key => {
-        stringCompressed += key + charactersAmounts[key];
-    })
-
-    return stringCompressed;
+    return compressedWord;
 }
 
-interface CharactersAmounts {
-    [key: string]: number
-}
-
-console.log(stringCompression('aabcccccaaa')); // 'a2b1c5a3'
-console.log(stringCompression('zzzzzzzzzzzz')); // 'z12'
-console.log(stringCompression('abcdefg')); // 'abcdefg'
+// console.log(stringCompression('aabcccccaaa')); // 'a2b1c5a3'
+// console.log(stringCompression('zzzzzzzzzzzz')); // 'z12'
+// console.log(stringCompression('abcdefg')); // 'abcdefg'
+// console.log(stringCompression('aabcdeeeeeeeeeellllllllllpoooooooooo')) // a2b1c1d1e10l10p1o10
 
 /**
  * Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to
@@ -57,12 +47,58 @@ console.log(stringCompression('abcdefg')); // 'abcdefg'
  * 
  * TEST CASES
  * 
- * Input: 'aabcccccaaa'
- * Output: 'a2b1c5a3'
+ * Input: [
+ *  [1, 2, 3, 4],
+ *  [5, 6, 7, 8],
+ *  [9, 10, 11, 12],
+ *  [13, 14, 15, 16]
+ * ]
+ * Output: [
+ *  [13, 9, 5, 1],
+ *  [14, 10, 6, 2],
+ *  [15, 11, 7, 3],
+ *  [16, 12, 8, 4]
+ * ]
  * 
- * Input: 'zzzzzzzzzzzz'
- * Output: 'z12'
- * 
- * Input: 'abcdefg'
- * Output: 'abcdefg'
+ * Input: [
+ *  ['p', 'o', 'n', 'm'],
+ *  ['l', 'k', 'j', 'i'],
+ *  ['h', 'g', 'f', 'e'],
+ *  ['d', 'c', 'b', 'a']
+ * ]
+ * Output: [
+ *  ['d', 'h', 'l', 'p'],
+ *  ['c', 'g', 'k', 'o'],
+ *  ['b', 'f', 'j', 'n'],
+ *  ['a', 'e', 'i', 'm']
+ * ]
  */
+
+const rotateMatrix = <T extends unknown>(matrix: T[][]): T[][] => {
+    let rotatedMatrix: T[][] = [];
+    for(let i = matrix.length - 1; i >= 0; i--) {
+        const currentItem = matrix[i];
+        for(let j = 0; j < currentItem.length; j++) {
+            if(rotateMatrix[j]) {
+                rotatedMatrix[j].push(currentItem[j]);
+            } else {
+                rotatedMatrix[j] = [currentItem[j]];
+            }
+        }
+    }
+    return rotatedMatrix;
+}
+
+console.log(rotateMatrix([
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12],
+  [13, 14, 15, 16]
+]));
+
+console.log(rotateMatrix([
+  ['p', 'o', 'n', 'm'],
+  ['l', 'k', 'j', 'i'],
+  ['h', 'g', 'f', 'e'],
+  ['d', 'c', 'b', 'a']
+]))

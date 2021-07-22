@@ -28,9 +28,9 @@ export const hasAllUniqueCharacters = (word: string): boolean => {
     return true;
 }
 
-console.log(hasAllUniqueCharacters('tacos')); // true
-console.log(hasAllUniqueCharacters('amarillo')); // false
-console.log(hasAllUniqueCharacters('question')); // true
+// console.log(hasAllUniqueCharacters('tacos')); // true
+// console.log(hasAllUniqueCharacters('amarillo')); // false
+// console.log(hasAllUniqueCharacters('question')); // true
 
 
 // ----------------------------------------------------------------------
@@ -58,6 +58,6 @@ const reverseString = (word: string): string => {
     return reversedString;
 }
 
-console.log(reverseString('ekans')) // 'snake'
-console.log(reverseString('arboc')) // 'cobra'
-console.log(reverseString('muk')) // 'kum'
+// console.log(reverseString('ekans')) // 'snake'
+// console.log(reverseString('arboc')) // 'cobra'
+// console.log(reverseString('muk')) // 'kum'
